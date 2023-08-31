@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audio File Upload and Display Example</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <input type="file" id="audioInput" accept="audio/*">
+  <audio controls id="audioPlayer">
+    Your browser does not support the audio element.
+  </audio>
+  <button id="uploadButton">Upload</button>
+  <div id="resultContainer">
+    <h2>Results</h2>
+    <div id="predictionContainer">
+      <h3>Prediction</h3>
+      <!-- <img id="predictionImage" alt="Prediction"> -->
+      <canvas id="chart" width="400" height="200"></canvas>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
