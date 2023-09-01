@@ -9,6 +9,7 @@ import soundfile as sf
 import pandas as pd
 import numpy as np
 import librosa
+import resampy
 
 app = Flask(__name__)
 CORS(app)
@@ -60,35 +61,8 @@ def upload_file():
 
     if audio_file and allowed_file(audio_file.filename):
         filename = secure_filename(audio_file.filename)
-        # filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        # audio_file.save(filename)
 
-        # # Extract sample rate using soundfile
-        # try:
-        #     data, sample_rate = sf.read(filename)
-        # except Exception as e:
-        #     return jsonify({'error': 'Error reading audio file'}), 500
-
-        X, sample_rate = librosa.load(filename, res_type='kaiser_best',duration=4,sr=44100)
-        
-        # # Mel Spectogram
-        # spectrogram = librosa.feature.melspectrogram(y=data, sr=sample_rate, n_mels=128,fmax=8000)
-        # db_spec = librosa.power_to_db(spectrogram)
-        # #temporally average spectrogram
-        # log_spectrogram = np.mean(db_spec, axis = 0)
-
-        # #MFCC
-        # # mfccs = librosa.feature.mfcc(y=data, sr=sample_rate,n_mfcc=
-        # #         (log_spectrogram).shape[1])
-        # # print("MFCC shape", mfccs.shape)
-
-
-
-        # empty_df = pd.DataFrame(index=np.arange(1), columns=np.arange(259)) #259 #454
-        # df = pd.DataFrame(columns=['mel_spectrogram'])
-        # df.loc[0] = [log_spectrogram]
-        # df_combined = pd.concat([pd.DataFrame(df['mel_spectrogram'].values.tolist()), empty_df], ignore_index=True)
-        # df_combined = df_combined.fillna(0)
+        X, sample_rate = librosa.load(audio_file, res_type='kaiser_best',duration=4,sr=44100)
 
         df = pd.DataFrame(columns=['mel_spectrogram'])
         #get the mel-scaled spectrogram (transform both the y-axis (frequency) to log scale, and the “colour” axis (amplitude) to Decibels, which is kinda the log scale of amplitudes.)
