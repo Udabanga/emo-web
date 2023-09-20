@@ -45,10 +45,6 @@ class PredictionEncoder(JSONEncoder):
         else:
             return super().default(obj)
 
-
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
 @app.route('/upload', methods=['POST'])
 def upload_file():
     if 'audio' not in request.files:
